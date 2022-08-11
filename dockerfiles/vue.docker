@@ -1,0 +1,23 @@
+FROM node:16.14.0
+
+# instalar un simple servidor http para servir nuestro contenido estático
+RUN npm install -g http-server
+
+# hacer la carpeta 'app' el directorio de trabajo actual
+WORKDIR /app
+
+# copiar 'package.json' y 'package-lock.json' (si están disponibles)
+COPY package*.json ./
+
+# instalar dependencias del proyecto
+RUN npm install
+
+
+
+# construir aplicación para producción minificada
+# RUN npm run build
+
+EXPOSE 8080
+#CMD ["npm", "start"]
+CMD ["npm", "run", "serve"]
+#CMD [ "http-server", "dist" ]
